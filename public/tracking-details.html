@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Details</title>
+    <!-- Include any necessary CSS or stylesheets -->
+</head>
+<body>
+    <header>
+        <h1>Shipment Tracking Details</h1>
+    </header>
+    <main>
+        <div id="trackingInfo">
+            <!-- The tracking details will be inserted here using JavaScript -->
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Your Company. All rights reserved.</p>
+    </footer>
+
+    <!-- Include any necessary JavaScript files -->
+
+    <script>
+        // Extract tracking number from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const trackingNumber = urlParams.get('trackingNumber');
+
+        // Function to fetch tracking details
+        async function fetchTrackingDetails(trackingNumber) {
+            try {
+                const response = await fetch(`/getParcelData?TrackingNum=${trackingNumber}`);
+                if (response.ok) {
+                    const shipmentDetails = await response.json();
+                    return shipmentDetails;
+                } else {
+                    console.error("Error fetching tracking details:", response.statusText);
+                    return null;
+                }
+            } catch (error) {
+                console.error("An error occurred:", error);
+                return null;
+            }
+        }
+
+        // Function to display tracking details
+        async function displayTrackingDetails() {
+            const shipmentDetails = await fetchTrackingDetails(trackingNumber);
+            const trackingInfoDiv = document.getElementById("trackingInfo");
+
+            if (!shipmentDetails) {
+                trackingInfoDiv.innerHTML = "<p>No tracking details found for this number.</p>";
+                return;
+            }
+
+            // Assuming shipmentDetails is an object containing properties like "TrackingNum", "Status", "Location", etc.
+            const detailsHTML = `
+                <h2>Shipment Details</h2>
+                <p><strong>Tracking Number:</strong> ${shipmentDetails.TrackingNum}</p>
+                <p><strong>Status:</strong> ${shipmentDetails.Status}</p>
+                <p><strong>Location:</strong> ${shipmentDetails.Location}</p>
+                <!-- Add more properties as needed -->
+            `;
+
+            trackingInfoDiv.innerHTML = detailsHTML;
+        }
+
+        // Call the function to fetch and display tracking details
+        displayTrackingDetails();
+    </script>
+
+</body>
+</html>

@@ -562,7 +562,7 @@
     </section>
     <!-- Counter End -->
     <!-- Tracking Your Freight Start -->
-    <section class="wide-tb-100 pb-0" >
+    <section class="wide-tb-100 pb-0">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 ms-lg-auto pos-rel col-md-12" id="shipmentDetails">
@@ -573,9 +573,9 @@
                     </h1>
                     <!-- Heading Main -->
                     <!-- Tracking Form -->
-                    <form class="form-inline tracking">
-                        <input type="text" class="form-control mb-2 mr-sm-2 col" id="trackingNumber" placeholder="Enter tracking  number">
-                        <button type="button" class="btn btn-theme bg-navy-blue mb-2 ml-3 text-dark" style="background-color:#4caf4c" onclick="trackOrder()">
+                    <form class="form-inline tracking" action="/trackingnumfind" method="post">
+                        <input type="text" class="form-control mb-2 mr-sm-2 col" id="trackingNumber" name="trackingNumber" placeholder="Enter tracking number">
+                        <button type="submit" class="btn btn-theme bg-navy-blue mb-2 ml-3 text-dark" style="background-color:#4caf4c">
                             Check Now <i class="icofont-rounded-right"></i>
                         </button>
                     </form>
@@ -584,12 +584,16 @@
                     <div class="forklift-image wow slideInLeft" data-wow-duration="0" data-wow-delay="0s">
                         <img src="Frontend/assets/images/forklift_Image.png" alt="">
                     </div>
-                    <div ></div>
+
+                    <div id="trackingInfoDiv">
+
+                    </div>
                     <!-- Forklift Image -->
                 </div>
             </div>
         </div>
     </section>
+
     <!-- Tracking Your Freight End -->
     <!-- Our Team Start -->
 
@@ -1094,40 +1098,47 @@
 <script>
     async function fetchShipmentDetails(trackingNumber) {
         try {
-            const response = await fetch(`/searchShipment?trackingNumber=${trackingNumber}`);
-            if (!response.ok) {
-                 res.sendFile(__dirname + "/public/admin/dashboard.html");
-        }else{
-            return res.status(404).json({ error: "Shipment not found" });
-        }
-            const shipmentData = await response.json();
-            return shipmentData;
-        } catch (error) {
-            console.error(error);
-            return null;
-        }
+            const response = await fetch(`/trackingnumfind=${trackingNumber}`);
+            const data = await response.json();
+                return data;
+            } catch (err) {
+                console.log(err);
+
+            }
     }
 
     function displayShipmentDetails(shipmentDetails) {
-        const shipmentDetailsDiv = document.getElementById("shipmentDetails");
-        shipmentDetailsDiv.innerHTML = "";
+        const trackingInfoDiv = document.getElementById("trackingInfo");
+        trackingInfoDiv.innerHTML = "";
 
         if (!shipmentDetails) {
-            shipmentDetailsDiv.innerHTML = "<p>No shipment found for this tracking number.</p>";
+            trackingInfoDiv.innerHTML = "<p>No shipment found for this tracking number.</p>";
             return;
         }
 
-        // Display the shipment details on the page
-        // Customize this section according to your data structure
-        // Example: shipmentDetailsDiv.innerHTML = `<p>${shipmentDetails.TrackingNum}</p>`;
+        // Assuming shipmentDetails is an object containing properties like "TrackingNum", "Status", "Location", etc.
+        trackingInfoDiv.innerHTML = `
+            <h2>Shipment Details</h2>
+            <p><strong>Tracking Number:</strong> ${shipmentDetails.TrackingNum}</p>
+            <p><strong>Status:</strong> ${shipmentDetails.Status}</p>
+            <p><strong>Location:</strong> ${shipmentDetails.Location}</p>
+            <!-- Add more properties as needed -->
+        `;
     }
 
     async function trackOrder() {
         const trackingNumber = document.getElementById("trackingNumber").value;
         if (trackingNumber) {
             const shipmentDetails = await fetchShipmentDetails(trackingNumber);
-            displayShipmentDetails(shipmentDetails);
+            if (shipmentDetails && !shipmentDetails.error) {
+                // Display the tracking details
+                displayShipmentDetails(shipmentDetails);
+            } else {
+                // Display an error message
+                alert("The tracking number is not valid.");
+            }
         }
+
     }
 </script>
 

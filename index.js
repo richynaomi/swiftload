@@ -99,55 +99,36 @@ app.get("/add-tracking.html", async(req, res) =>{
     res.sendFile(__dirname + "/public/admin/add-tracking.html");
 })
 
-app.post("/addtracker", async(req, res) => {
-    let NewTracker = new AddNewTracker({
-        Firstname: req.body.firstname,
-        Lastname: req.body.lastname,
-        TrackingNum: req.body.tracknum,
-        ShipmentType: req.body.shipmentType,
-        parcelcontent: req.body.parcelcontent,
-        shippedDate: req.body.shippeddate,
-        expired_delivery_date: req.body.exipreddate,
-        sourcecity: req.body.sourcecity,
-        sourceState: req.body.sourcestate,
-        sourceCountry: req.body.sourcecountry,
-        currentCity: req.body.currentcity,
-        currentState: req.body.currentstate,
-        currentCountry: req.body.currentzip,
-        destinationCity: req.body.destinationstatecity,
-        destinationState: req.body.destinationstate,
-        destinationCountry: req.body.destinationcountry,
-        contactnumber: req.body.contactnumber,
-        parcelstatus: req.body.Parcelstatus
 
-    })
-    NewTracker.save()
-    try {
-        console.log('Tracker added successfully');
-        res.sendFile(__dirname + "/public/admin/dashboard.html");
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json({ error: "An error occurred" });
-    }
-})
-
-app.get("/searchShipment", async (req, res) => {
-    const trackingNumber = req.query.trackingNumber;
+app.post("/trackingnumfind", async (req, res) => {
+    // Get the tracking number from the form data
+    const trackingNumber = req.body.trackingNumber;
 
     try {
-        const shipment = await AddNewTracker.findOne({ TrackingNum: trackingNumber });
-        if (shipment) {
-            res.sendFile(__dirname + "/public/admin/dashboard.html");
-        }else{
-            return res.status(404).json({ error: "Shipment not found" });
+        // Fetch the tracking details from the database based on the tracking number
+        const shipmentDetails = await AddNewTracker.findOne({ TrackingNum: trackingNumber });
+
+        if (shipmentDetails) {
+            res.redirect(`/tracking-details?trackingNumber=${shipmentDetails.TrackingNum}`);
+        } else {
+            res.status(404).send("The tracking number is not found.");
         }
-
-        res.json(shipment);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "An error occurred" });
+        res.status(500).send("An error occurred while fetching tracking details.");
     }
 });
+
+app.get("/tracking-details", (req, res) => {
+    res.sendFile(__dirname + "/public/tracking-details.html");
+});
+
+
+  app.listen(3000, () => {
+    console.log("Express server listening on port 3000.");
+  });
+
+
 
 
 app.get("/", (req, res) => {
