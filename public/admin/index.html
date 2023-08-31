@@ -8,6 +8,7 @@
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="assets/ico/favicon.png">
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../Frontend/assets/css/staff.css">
     <link href="../Frontend/assets/css/cssreset.css"" rel="stylesheet" />
     <link href="../Frontend/assets/css/bootstrap.css" rel="stylesheet" />
     <link href="../Frontend/assets/css/main.css" rel="stylesheet" />
@@ -16,45 +17,38 @@
   </head>
   <body>
 
-      <div class="container">
-        <div class="top-content">
-                
-                <div class="inner-bgd">
-                    <div class="container w-50 mx-auto my-5 border">
-                        <div class="row">
-                            <div class="col-sm-12 form-box">
-                                <div class="form-top">
-                                    <div class="form-top-left">
-                                        <h3>Login to our site</h3>
-                                        <p>{{error}}</p>
-                                        <p>Enter your username and password to log on:</p>
-                                    </div>
-                                    <p>
 
-                                    </p>
-                                    <div class="form-top-right">
-                                        <i class="fa fa-lock"></i>
-                                    </div>
-                                </div>
-                                <div class="form-bottom">
-                                    <form action="/login" method="post" class="login-form">
-                                        <div class="form-group">
-                                            <label class="sr-only" for="email">Username</label>
-                                            <input type="text" name="email" placeholder="Email..." class="form-username form-control" id="email">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="form-password">Password</label>
-                                            <input type="text" name="password" placeholder="Password..." class="form-password form-control" id="password">
-                                        </div>
-                                        <input type="submit" class="btn btn-md text-white bg-danger" value="Login" id="submit" />
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
+      <div class="box-form">
+        <div class="left">
+          <div class="overlay">
+          <h1> Door Step Delivery</h1>
+          <p></p>
+      
+          </div>
+        </div>
+      
+      
+          <div class="right">
+          <h5>Admin Login</h5>
+          <form action="/login" method="post" class="login-form">
+            <div class="form-group">
+                <label class="sr-only" for="email">Username</label>
+                <input type="text" name="email" placeholder="Email..." class="" id="email">
             </div>
+            <div class="form-group">
+                <label class="sr-only" for="form-password">Password</label>
+                <input type="text" name="password" placeholder="Password..." id="password">
+            </div>
+            <button type="submit">Login</button>
+        </form>
+      
+            <br><br>
+      
+
+            <br>
+
+        </div>
+        
       </div>
 </head>
   </body>
