@@ -1603,7 +1603,7 @@ website:   	http://www.themepunch.com
 	border-width:0;
 	color:rgba(255,255,255,1.00);
 	font-family:Raleway;
-	font-size:70px;
+	font-size:40px !important;
 	font-style:normal;
 	font-weight:800;
 	line-height:70px;
@@ -2773,7 +2773,7 @@ website:   	http://www.themepunch.com
 .tp-caption.RotatingWords-TitleWhite,
 .RotatingWords-TitleWhite {
     color: rgba(255, 255, 255, 1.00);
-    font-size: 70px;
+    font-size: 10px;
     line-height: 70px;
     font-weight: 800;
     font-style: normal;

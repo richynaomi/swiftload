@@ -24,8 +24,8 @@ img{
 }
 :root {
     scroll-behavior: inherit;
-    --primary-color: #16a362;
-    --secondary-color: #dfc76d;
+    --primary-color: #4caf4c;
+    --secondary-color: #4caf4c;
     --main-dark-color: #666;
     --bg-light-theme: #fef9f5;
     --bg-white: #FFF;
@@ -1677,7 +1677,7 @@ h2.h2-xl { font-size: 1.5rem; }     /* 24px */
 	background-repeat: no-repeat;
 }
 .counter-style-1{
-	color: #FFF;
+	color: rgb(49, 49, 49);
 	text-align: center;
 	font-size: 14px;
 
@@ -1687,7 +1687,7 @@ h2.h2-xl { font-size: 1.5rem; }     /* 24px */
 }
 .counter-style-1 span {
 	font-size: 3rem;
-	color: #fef9f5;
+	color: rgb(49, 49, 49);
 	letter-spacing: -2px;
 	font-weight: 700;
 }
@@ -3068,7 +3068,7 @@ footer .social-icons a{
     }
 .copyright-wrap{
     margin-top: 70px;
-    color: #FFF;
+    color: rgb(34, 34, 34);
     font-size: 0.75rem;
 }
 .copyright-wrap a{

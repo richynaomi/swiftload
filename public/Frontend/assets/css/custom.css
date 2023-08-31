@@ -14,8 +14,8 @@ form.request-del div.inter-state {
 }
 
 #lbb-logo {
-    height: 50px;
-    width: 150px;
+    height: 150px;
+    width: 250px;
 }
 #lbb-logo img{
     width: 100%;
@@ -34,18 +34,18 @@ form.request-del div.inter-state {
 
 
 .header-fullpage .request-btn .btn-theme {
-    color: black !important;
-    background-color: #dfc76d !important;
+    color: white !important;
+    background-color: #4caf4c !important;
 }
 
 
 .logo-footer img {
-    max-width: 80%;
+    max-width: 100%;
 }
 
 .logo-footer {
-    width: 250px;
-    height: 120px;
+    width: 400px;
+    height: 100px;
 }
 .pro-content .row {
     --bs-gutter-x: 4rem;
@@ -69,6 +69,7 @@ form.request-del div.inter-state {
 @media (max-width:991px) {
     #lbb-logo-mobile {
         display: block;
+
     }
 
     #lbb-logo {

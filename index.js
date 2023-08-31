@@ -13,7 +13,7 @@ app.set("view engine", "ejs");
 
 // Simulated user for demonstration purposes
 const hardcodedUser = {
-    email: "favoursunday600@gmail.com",
+    email: "favoursnday600@gmail.com",
     passwordHash: "Favoursu54" // Hash of "Favoursu54"
 };
 
