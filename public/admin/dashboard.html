@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.png">
+    <!-- Bootstrap CSS -->
+    <link href="../Frontend/assets/css/cssreset.css"" rel="stylesheet" />
+    <link href="../Frontend/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Frontend/assets/css/main.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/cbdf2b0f0e.js" crossorigin="anonymous"></script>
+    <title>NEXTGEN - Logistics</title>
+  </head>
+  <body>
+
+      <div class="container border my-5">
+          <div class="row">
+              <div class="col-12 col-md-3 border">
+                    <h3>Admin Dashboard</h3>
+                    <nav class="nav flex-column bg-dark">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="dashboard.html">View All Tracked Parcel</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./add-tracking.html">Add New Tracked Parcel</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Log out</a>
+                        </li>
+                    </nav>
+                </div>
+              <div class="col-12 col-md-9">
+                <h3>Admin Dashboard</h3>
+                <p>
+
+                </p>
+                <div class="my-1">
+
+                </div>
+                <div class="container mb-5">
+                    <div class="row">
+                      <div class="col-12">
+                        <h3 class="my-1">Parcel Information</h3>
+                        <div class="table-responsive border">
+                          <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th>Tracking Number</th>
+                                <th>Receiver Name</th>
+                                <th>Content</th>
+                                <th>Contact Number</th>
+                                <th>Status</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                              </tr>
+                            </thead>
+                            <tbody id="tableBody"></tbody>
+
+                              <tr class="boldder">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><a href="./edit.html">Edit</a></td>
+                                <td><a href="/delete">Delete</a></td>
+                              </tr>
+
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+      </div>
+      
+      <script>
+        const tableBody = document.getElementById("tableBody");
+    
+        // Function to fetch parcel data from the server
+        async function fetchParcelData() {
+            try {
+                const response = await fetch("/getParcelData");
+                const data = await response.json();
+                return data;
+            } catch (err) {
+                console.error(err);
+                return [];
+            }
+        }
+    
+        // Function to populate the table with parcel data
+        async function populateTable() {
+            const parcelData = await fetchParcelData();
+    
+            if (parcelData.length === 0) {
+                // Display a message if no data is available
+                tableBody.innerHTML = "<tr><td colspan='7'>No data available</td></tr>";
+                return;
+            }
+    
+            parcelData.forEach(parcel => {
+                const newRow = document.createElement("tr");
+                newRow.innerHTML = `
+                    <td>${parcel.TrackingNum}</td>
+                    <td>${parcel.Firstname} ${parcel.Lastname}</td>
+                    <td>${parcel.parcelcontent}</td>
+                    <td>${parcel.contactnumber}</td>
+                    <td>${parcel.parcelstatus}</td>
+                    <td><a href="./edit.html">Edit</a></td>
+                    <td><a href="/delete">Delete</a></td>
+                `;
+                tableBody.appendChild(newRow);
+            });
+        }
+    
+        // Call the function to populate the table on page load
+        populateTable();
+    </script>
+    </body>
+    </html>
+
+  </body>
+</html>
