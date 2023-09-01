@@ -311,7 +311,7 @@
                 <!-- Heading Main -->
                 <!-- Icon Box 1 -->
                 <div class="col-md-4 wow fadeInUp" data-wow-duration="0" data-wow-delay="0.4s">
-                    <a href="">
+                    <a href="#">
                         <div class="icon-box-1 2-box">
                             <img src="Frontend/assets/image/log3.jpg" alt="">
                             <div class="text">
@@ -324,7 +324,7 @@
                 <!-- Icon Box 1 -->
                 <!-- Icon Box 1 -->
                 <div class="col-md-4 wow fadeInUp" data-wow-duration="0" data-wow-delay="0.1s">
-                    <a href="">
+                    <a href="#">
                         <div class="icon-box-1 1-box">
                             <img src="Frontend/assets/images/icon-box-0.jpg" alt="">
                             <div class="text">
@@ -338,7 +338,7 @@
               
                 <!-- Icon Box 1 -->
                 <div class="col-md-4 wow fadeInUp" data-wow-duration="0" data-wow-delay="0.6s">
-                    <a href="">
+                    <a href="#">
                         <div class="icon-box-1 3-box">
                             <img src="Frontend/assets/image/log9.jpg" alt="">
                             <div class="text">
@@ -462,7 +462,7 @@
                                 </blockquote>
                             </div>
                             <div class="col-12 mb-0 order-md-first col-sm-6 re-img">
-                                <img src="Frontend/assets/image/log8.jpg" alt="">
+                                <img src="Frontend/assets/images/parcelh 1.png" alt="">
                             </div>
                         </div>
                     </div>
@@ -1095,52 +1095,6 @@
         }); /*ready*/
 </script>
 
-<script>
-    async function fetchShipmentDetails(trackingNumber) {
-        try {
-            const response = await fetch(`/trackingnumfind=${trackingNumber}`);
-            const data = await response.json();
-                return data;
-            } catch (err) {
-                console.log(err);
-
-            }
-    }
-
-    function displayShipmentDetails(shipmentDetails) {
-        const trackingInfoDiv = document.getElementById("trackingInfo");
-        trackingInfoDiv.innerHTML = "";
-
-        if (!shipmentDetails) {
-            trackingInfoDiv.innerHTML = "<p>No shipment found for this tracking number.</p>";
-            return;
-        }
-
-        // Assuming shipmentDetails is an object containing properties like "TrackingNum", "Status", "Location", etc.
-        trackingInfoDiv.innerHTML = `
-            <h2>Shipment Details</h2>
-            <p><strong>Tracking Number:</strong> ${shipmentDetails.TrackingNum}</p>
-            <p><strong>Status:</strong> ${shipmentDetails.Status}</p>
-            <p><strong>Location:</strong> ${shipmentDetails.Location}</p>
-            <!-- Add more properties as needed -->
-        `;
-    }
-
-    async function trackOrder() {
-        const trackingNumber = document.getElementById("trackingNumber").value;
-        if (trackingNumber) {
-            const shipmentDetails = await fetchShipmentDetails(trackingNumber);
-            if (shipmentDetails && !shipmentDetails.error) {
-                // Display the tracking details
-                displayShipmentDetails(shipmentDetails);
-            } else {
-                // Display an error message
-                alert("The tracking number is not valid.");
-            }
-        }
-
-    }
-</script>
 
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">

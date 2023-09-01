@@ -45,7 +45,7 @@ function comparePassword(raw, hash) {
 }
 
 mongoose
-    .connect('mongodb+srv://favour:favoursu@cluster0.1i4m3zl.mongodb.net/test', {
+    .connect('mongodb+srv://richynaomi30:Required1234@cluster0.uewqabx.mongodb.net/tester', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
@@ -97,6 +97,38 @@ app.post("/login", async (req, res) => {
 
 app.get("/add-tracking.html", async(req, res) =>{
     res.sendFile(__dirname + "/public/admin/add-tracking.html");
+})
+
+app.post("/addtracker", async(req, res) => {
+    let NewTracker = new AddNewTracker({
+        Firstname: req.body.firstname,
+        Lastname: req.body.lastname,
+        TrackingNum: req.body.tracknum,
+        ShipmentType: req.body.shipmentType,
+        parcelcontent: req.body.parcelcontent,
+        shippedDate: req.body.shippeddate,
+        expired_delivery_date: req.body.exipreddate,
+        sourcecity: req.body.sourcecity,
+        sourceState: req.body.sourcestate,
+        sourceCountry: req.body.sourcecountry,
+        currentCity: req.body.currentcity,
+        currentState: req.body.currentstate,
+        currentCountry: req.body.currentzip,
+        destinationCity: req.body.destinationstatecity,
+        destinationState: req.body.destinationstate,
+        destinationCountry: req.body.destinationcountry,
+        contactnumber: req.body.contactnumber,
+        parcelstatus: req.body.Parcelstatus
+
+    })
+    NewTracker.save()
+    try {
+        console.log('Tracker added successfully');
+        res.sendFile(__dirname + "/public/admin/dashboard.html");
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: "An error occurred" });
+    }
 })
 
 
