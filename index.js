@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const expressLayouts = require('express-ejs-layouts');
+const path = require('path');
 
 const app = express();
 const port = 3005;
@@ -9,7 +11,13 @@ const port = 3005;
 app.use(bodyParser.json());
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.set('layout extractScripts', true)
+app.set('layout extractStyles', true)
+
+app.use(expressLayouts);
+
 
 // Simulated user for demonstration purposes
 const hardcodedUser = {
@@ -146,14 +154,30 @@ app.post("/trackingnumfind", async (req, res) => {
             res.status(404).send("The tracking number is not found.");
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).send("An error occurred while fetching tracking details.");
+        
     }
 });
 
-app.get("/tracking-details", (req, res) => {
-    res.sendFile(__dirname + "/public/tracking-details.html");
+app.get("/tracking-details", async (req, res) => {
+    const trackingNumber = req.query.trackingNumber; // Get the tracking number from the query parameter
+
+    try {
+        // Fetch the tracking details from the database based on the tracking number
+        const parcelData = await AddNewTracker.find({ TrackingNum: trackingNumber });
+
+        if (!parcelData || parcelData.length === 0) {
+            // Handle the case when no parcel data is found
+            return res.status(404).send("No parcel data found.");
+        }
+
+        // Send the fetched parcel data as JSON response
+        res.render('tracking-details', { parcelData });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "An error occurred" });
+    }
 });
+
 
 
   app.listen(3000, () => {

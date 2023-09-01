@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Details</title>
+    <!-- Include any necessary CSS or stylesheets -->
+</head>
+<body>
+    <header style="margin-top: 150px;">
+        <h1>Shipment Tracking Details</h1>
+    </header>
+    <main>
+        <table class="table table-hover" style="margin-bottom: 100px;">
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody style="display: flex; flex-direction: column !important;">
+                <!-- Iterate through parcelData and create a row for each property -->
+                <% parcelData.forEach(parcel => { %>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Tracking Number:</td>
+                        <td><%= parcel.trackingNum %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Receiver Name:</td>
+                        <td><%= parcel.Firstname %> <%= parcel.Lastname %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Content:</td>
+                        <td><%= parcel.parcelcontent %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Contact Number:</td>
+                        <td><%= parcel.contactnumber %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Shipped Date:</td>
+                        <td><%= parcel.shippedDate %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Delete:</td>
+                        <td><%= parcel.expired_delivery_date %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Source City:</td>
+                        <td><%= parcel.sourcecity %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Source State:</td>
+                        <td><%= parcel.sourceState %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Source Country:</td>
+                        <td><%= parcel.sourceCountry %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Current City:</td>
+                        <td><%= parcel.currentCity %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Current State:</td>
+                        <td><%= parcel.currentState %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Current Country:</td>
+                        <td><%= parcel.currentCountry %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Destination City:</td>
+                        <td><%= parcel.destinationCity %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Destination State:</td>
+                        <td><%= parcel.destinationState %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Destination Country:</td>
+                        <td><%= parcel.destinationCountry %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Contact Number:</td>
+                        <td><%= parcel.contactnumber %></td>
+                    </tr>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Parcel Status:</td>
+                        <td><%= parcel.parcelstatus %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
