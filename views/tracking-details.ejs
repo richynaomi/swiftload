@@ -13,10 +13,14 @@
     <main>
         <table class="table table-hover" style="margin-bottom: 100px;">
             <thead>
+                <% parcelData.forEach(parcel => { %>
                 <tr>
-                    <th>Property</th>
-                    <th>Value</th>
+                    <tr style="display: flex; justify-content: space-between;">
+                        <td>Parcel Status:</td>
+                        <td><%= parcel.parcelstatus %></td>
+                    </tr>
                 </tr>
+                <% }); %>
             </thead>
             <tbody style="display: flex; flex-direction: column !important;">
                 <!-- Iterate through parcelData and create a row for each property -->
@@ -26,24 +30,25 @@
                         <td><%= parcel.TrackingNum %></td>
                     </tr>
                     <tr style="display: flex; justify-content: space-between;">
-                        <td>Receiver Name:</td>
-                        <td><%= parcel.Firstname %> <%= parcel.Lastname %></td>
+                        <td>Sender Name:</td>
+                        <td><%= parcel.sendername %></td>
+                    </tr>
+                     <tr style="display: flex; justify-content: space-between;">
+                        <td>Reciever Name:</td>
+                        <td><%= parcel.receivername %></td>
                     </tr>
                     <tr style="display: flex; justify-content: space-between;">
                         <td>Content:</td>
                         <td><%= parcel.parcelcontent %></td>
                     </tr>
-                    <tr style="display: flex; justify-content: space-between;">
-                        <td>Contact Number:</td>
-                        <td><%= parcel.contactnumber %></td>
-                    </tr>
+
                     <tr style="display: flex; justify-content: space-between;">
                         <td>Shipped Date:</td>
                         <td><%= parcel.shippedDate %></td>
                     </tr>
                     <tr style="display: flex; justify-content: space-between;">
-                        <td>Delete:</td>
-                        <td><%= parcel.expired_delivery_date %></td>
+                        <td>Expected Delivery Date:</td>
+                        <td><%= parcel.expecteddeliverydate %></td>
                     </tr>
                     <tr style="display: flex; justify-content: space-between;">
                         <td>Source City:</td>
@@ -82,18 +87,20 @@
                         <td><%= parcel.destinationCountry %></td>
                     </tr>
                     <tr style="display: flex; justify-content: space-between;">
-                        <td>Contact Number:</td>
-                        <td><%= parcel.contactnumber %></td>
+                        <td>Sender Contact Number:</td>
+                        <td><%= parcel.sendercontactnumber %></td>
                     </tr>
-                    <tr style="display: flex; justify-content: space-between;">
-                        <td>Parcel Status:</td>
-                        <td><%= parcel.parcelstatus %></td>
+
+                     <tr style="display: flex; justify-content: space-between;">
+                        <td>Reciever Contact Number:</td>
+                        <td><%= parcel.recievercontactnumber %></td>
                     </tr>
+
                 <% }); %>
             </tbody>
         </table>
     </main>
 
-    
+
 </body>
 </html>

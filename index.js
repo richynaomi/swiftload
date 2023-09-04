@@ -26,13 +26,13 @@ const hardcodedUser = {
 };
 
 const addtracker = {
-  Firstname: String,
-  Lastname: String,
+  sendername: String,
+  receivername: String,
   TrackingNum: Number,
   ShipmentType: String,
   parcelcontent: String,
   shippedDate: Date,
-  expired_delivery_date: Date,
+  expecteddeliverydate: Date,
   sourcecity: String,
   sourceState: String,
   sourceCountry: String,
@@ -42,7 +42,8 @@ const addtracker = {
   destinationCity: String,
   destinationState: String,
   destinationCountry: String,
-  contactnumber: Number,
+  sendercontactnumber: Number,
+  recievercontactnumber: Number,
   parcelstatus: String
 }
 
@@ -109,13 +110,14 @@ app.get("/add-tracking.html", async(req, res) =>{
 
 app.post("/addtracker", async(req, res) => {
     let NewTracker = new AddNewTracker({
-        Firstname: req.body.firstname,
-        Lastname: req.body.lastname,
+        sendername: req.body.sendername,
+        receivername: req.body.receivername,
         TrackingNum: req.body.tracknum,
         ShipmentType: req.body.shipmentType,
+        expecteddeliverydate: req.body.expecteddeliverydate,
         parcelcontent: req.body.parcelcontent,
         shippedDate: req.body.shippeddate,
-        expired_delivery_date: req.body.exipreddate,
+        expecteddeliverydate: req.body.expecteddeliverydate,
         sourcecity: req.body.sourcecity,
         sourceState: req.body.sourcestate,
         sourceCountry: req.body.sourcecountry,
@@ -125,7 +127,8 @@ app.post("/addtracker", async(req, res) => {
         destinationCity: req.body.destinationstatecity,
         destinationState: req.body.destinationstate,
         destinationCountry: req.body.destinationcountry,
-        contactnumber: req.body.contactnumber,
+        sendercontactnumber: req.body.sendercontactnumber,
+        recievercontactnumber: req.body.recievercontactnumber,
         parcelstatus: req.body.Parcelstatus
 
     })
