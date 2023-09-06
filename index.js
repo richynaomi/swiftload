@@ -53,6 +53,16 @@ function comparePassword(raw, hash) {
     return bcrypt.compareSync(raw, hash);
 }
 
+function requireAuth(req, res, next) {
+    if (req.session && req.session.user) {
+      // User is authenticated
+      next();
+    } else {
+      // User is not authenticated; redirect to the login page or return an unauthorized response
+      res.redirect('/login');
+    }
+  }
+
 mongoose
     .connect('mongodb+srv://richynaomi30:Required1234@cluster0.uewqabx.mongodb.net/tester', {
         useNewUrlParser: true,
@@ -77,7 +87,7 @@ app.get("/getParcelData", async (req, res) => {
     }
 });
 
-app.post("/login", async (req, res) => {
+app.post("/dashboard", async (req, res) => {
     const { email, password } = req.body;
 
     try {
@@ -103,6 +113,11 @@ app.post("/login", async (req, res) => {
         return res.status(500).json({ error: "An error occurred" });
     }
 });
+
+app.get("/dashboard", async(req, res)=>{
+    res.sendFile(__dirname + "/public/admin/dashboard.html");
+
+})
 
 app.get("/add-tracking.html", async(req, res) =>{
     res.sendFile(__dirname + "/public/admin/add-tracking.html");
