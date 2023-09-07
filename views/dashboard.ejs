@@ -1,0 +1,63 @@
+
+
+  <div class="container border my-5" style="margin-top: 200px !important">
+    <div class="row">
+      <div class="col-12 col-md-3 border">
+        <h3>Admin Dashboard</h3>
+        <nav class="nav flex-column bg-dark">
+          <li class="nav-item">
+            <a class="nav-link active" href="/dashboard">View All Tracked Parcel</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./add-tracking.html">Add New Tracked Parcel</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Log out</a>
+          </li>
+        </nav>
+      </div>
+      <div class="col-12 col-md-9">
+        <h3>Admin Dashboard</h3>
+        <p></p>
+        <div class="my-1"></div>
+        <div class="container mb-5">
+          <div class="row">
+            <div class="col-12">
+              <h3 class="my-1">Parcel Information</h3>
+              <div class="table-responsive border">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Tracking Number</th>
+                      <th>Sender Name</th>
+                      <th>Source Country</th>
+                      <th>Contact Number</th>
+                      <th>Status</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableBody">
+                    <tbody id="tableBody">
+                        <% parcelData.map(parcel => { %>
+                            <tr class="boldder">
+                                <td><%= parcel.TrackingNum %></td>
+                                <td><%= parcel.sendername %></td>
+                                <td><%= parcel.sourceCountry %></td>
+                                <td><%= parcel.parcelstatus %></td>
+                                <td><%= parcel.ShipmentType %></td>
+                                <td><a href="/editt/<%= parcel._id %>">Edit</a></td>
+                                <td><a href="/delete/<%= parcel._id %>">Delete</a></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

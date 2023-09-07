@@ -4,9 +4,11 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const expressLayouts = require('express-ejs-layouts');
 const path = require('path');
+const methodOverride = require('method-override')
 
 const app = express();
 const port = 3005;
+
 
 app.use(bodyParser.json());
 app.use(express.static('public'))
@@ -15,6 +17,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set('layout extractScripts', true)
 app.set('layout extractStyles', true)
+
 
 app.use(expressLayouts);
 
@@ -71,6 +74,15 @@ mongoose
     .then(() => console.log(`Connected to DB`))
     .catch((err) => console.error(err));
 
+app.use(methodOverride(function (req, res) {
+        if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+          // look in urlencoded POST bodies and delete it
+          var method = req.body._method
+          delete req.body._method
+          return method
+        }
+      }))
+
 app.use('/', express.static(__dirname + '/public'));
 
 app.get('/admin', async (req, res) => {
@@ -91,6 +103,7 @@ app.post("/dashboard", async (req, res) => {
     const { email, password } = req.body;
 
     try {
+        const parcelData = await AddNewTracker.find();
         if (!email || !password) {
             return res.status(400).json({ error: "Your credentials are not valid" });
         }
@@ -103,7 +116,7 @@ app.post("/dashboard", async (req, res) => {
 
         if (isValid) {
             console.log('Authenticated Successfully');
-            res.sendFile(__dirname + "/public/admin/dashboard.html");
+            res.render("dashboard", { parcelData}); // Render the "dashboard.ejs" template
         } else {
             console.log('Invalid Authentication');
             return res.status(401).json({ error: "wrong password" });
@@ -114,10 +127,18 @@ app.post("/dashboard", async (req, res) => {
     }
 });
 
-app.get("/dashboard", async(req, res)=>{
-    res.sendFile(__dirname + "/public/admin/dashboard.html");
+app.get("/dashboard", async (req, res) => {
+    try {
+        // Fetch parcelData from your database or source
+        const parcelData = await AddNewTracker.find(); // Assuming you have a function to fetch parcel data
 
-})
+        // Render the EJS template and pass parcelData to it
+        res.render("dashboard", { parcelData}); // Assuming your EJS file is named "dashboard.ejs"
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "An error occurred" });
+    }
+});
 
 app.get("/add-tracking.html", async(req, res) =>{
     res.sendFile(__dirname + "/public/admin/add-tracking.html");
@@ -129,7 +150,6 @@ app.post("/addtracker", async(req, res) => {
         receivername: req.body.receivername,
         TrackingNum: req.body.tracknum,
         ShipmentType: req.body.shipmentType,
-        expecteddeliverydate: req.body.expecteddeliverydate,
         parcelcontent: req.body.parcelcontent,
         shippedDate: req.body.shippeddate,
         expecteddeliverydate: req.body.expecteddeliverydate,
@@ -150,7 +170,7 @@ app.post("/addtracker", async(req, res) => {
     NewTracker.save()
     try {
         console.log('Tracker added successfully');
-        res.sendFile(__dirname + "/public/admin/dashboard.html");
+        res.redirect("dashboard");
     } catch (err) {
         console.log(err);
         return res.status(500).json({ error: "An error occurred" });
@@ -195,6 +215,88 @@ app.get("/tracking-details", async (req, res) => {
         res.status(500).json({ error: "An error occurred" });
     }
 });
+
+app.get("/editt/:id", async (req, res) => {
+    try {
+        // Fetch the item with the given ID from the database
+        const parcelData = await AddNewTracker.findById({_id: req.params.id});
+
+        if (!parcelData) {
+            // If the item was not found, respond with an error.
+            return res.status(404).json({ error: "Item not found" });
+        }
+        console.log(parcelData);
+        // Render the edit page and pass the fetched parcelData to it
+        res.render("edit", { parcelData});
+    } catch (error) {
+        // If an error occurs during the fetch operation, respond with an error.
+        console.error("Error fetching item for edit:", error);
+        res.status(500).json({ error: "An error occurred while fetching the item for edit" });
+    }
+});
+
+// Update route for editing a specific parcel by ID
+app.put("/parcels/:id", async (req, res) => {
+
+    try {
+        // Fetch the parcel with the given ID from the database
+        let parcelData = await AddNewTracker.findById(req.params.id)
+        .lean();
+
+        if (!parcelData) {
+            // If the parcel was not found, respond with an error.
+            return res.status(404).json({ error: "Parcel not found" });
+        }
+
+        // Update the parcelData object with the edited values from the form
+
+
+        // Save the updated parcelData object back to the database
+        parcelData = await AddNewTracker.findOneAndUpdate( {_id: req.params.id}, req.body, {
+            new: true,
+            runValidators: true
+        } )
+
+        // Redirect to the dashboard or another appropriate page after editing
+        res.redirect('/dashboard');
+    } catch (error) {
+        // If an error occurs during the edit operation, respond with an error.
+        console.error("Error editing parcel:", error);
+        res.status(500).json({ error: "An error occurred while editing the parcel" });
+    }
+});
+
+
+
+
+app.get("/delete/:id", async (req, res) => {
+    const itemId = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(itemId)) {
+        // If the provided item ID is not a valid MongoDB ObjectID, respond with an error.
+        return res.status(400).json({ error: "Invalid item ID" });
+    }
+
+    try {
+        // Attempt to find and delete the item with the given ID
+        const deletedItem = await AddNewTracker.findByIdAndDelete(itemId);
+
+        if (!deletedItem) {
+            // If the item was not found, respond with an error.
+            return res.status(404).json({ error: "Item not found" });
+        }
+
+        // If the item was successfully deleted, respond with a success message.
+        res.redirect('/dashboard');
+    } catch (error) {
+        // If an error occurs during the delete operation, respond with an error.
+        console.error("Error deleting item:", error);
+        res.status(500).json({ error: "An error occurred while deleting the item" });
+    }
+});
+
+
+
 
 
 
