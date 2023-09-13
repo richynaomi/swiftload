@@ -7,7 +7,7 @@ const path = require('path');
 const methodOverride = require('method-override')
 
 const app = express();
-const port = 3005;
+const port = 4000;
 
 
 app.use(bodyParser.json());
@@ -325,6 +325,7 @@ app.get('/logout', (req, res) => {
     console.log('Logged out');
     res.redirect('/admin'); // Redirect to the login page or some other appropriate page
 });
-app.listen(port, () => {
-    console.log(`Listening on PORT ${port}`);
+
+app.listen(3005, () => {
+    console.log(`Listening on PORT ${3005}`);
 });

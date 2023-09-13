@@ -5,23 +5,23 @@
         <input type="hidden" name="_method" value="PUT">
         <div class="form-row">
             <div class="col-12 col-md-6 mb-3">
-                <input type="hidden" name="id" value="<%= parcelData._id %>">
-                <label for="validationDefault01">Sender Name</label>
-                <input type="text" name="sendername" class="form-control" id="validationDefault01" value="<%= parcelData.sendername %>" required>
+
+                <label for="sendername">Sender Name</label>
+                <input type="text" name="sendername" class="form-control" id="sendername" value="<%= parcelData.sendername %>" required>
             </div>
             <div class="col-12 col-md-6 mb-3">
-                <label for="validationDefault02">Receiver Name</label>
-                <input type="text" name="receivername" class="form-control" id="validationDefault02" value="<%= parcelData.receivername %>" required>
+                <label for="receivername">Receiver Name</label>
+                <input type="text" name="receivername" class="form-control" id="receivername" value="<%= parcelData.receivername %>" required>
             </div>
         </div>
         <div class="form-row">
             <div class="col-12 col-md-6 mb-3">
-                <label for="validationDefault01">Tracking Number</label>
-                <input type="text" name="tracknum" class="form-control" id="validationDefault01" value="<%= parcelData.TrackingNum %>" required>
+                <label for="tracking">Tracking Number</label>
+                <input type="text" name="TrackingNum" class="form-control" id="tracking" value="<%= parcelData.TrackingNum %>" required>
             </div>
             <div class="col-12 col-md-6 mb-3">
-                <label class="mr-sm-2" for="inlineFormCustomSelect">Shipment Type</label>
-                <select class="custom-select mr-sm-2" name="shipmentType" id="inlineFormCustomSelect">
+                <label class="mr-sm-2" for="shipmentType">Shipment Type</label>
+                <select class="custom-select mr-sm-2" name="ShipmentType" id="shipmentType" value="<%= parcelData.ShipmentType %>">
                     <option selected>Choose...</option>
                     <option value="Air Freight">Air Freight</option>
                     <option value="Marine Freight">Marine Freight</option>
@@ -30,69 +30,75 @@
             </div>
         </div>
         <div class="form-row">
-            <label for="exampleFormControlTextarea1">Parcel Content</label>
-            <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="3"><%= parcelData.parcelcontent %></textarea>
+            <label for="parcelcontentt">Parcel Content</label>
+            <textarea class="form-control" name="parcelcontent" id="parcelcontentt" rows="3"><%= parcelData.parcelcontent %></textarea>
         </div>
         <div class="form-row">
             <div class="col-12 col-md-6 mb-3">
-                <label for="validationDefault01">Shipped Date</label>
-                <input type="date" name="sdate" value="<%= parcelData.shippedDate.toISOString().substring(0, 10) %>" class="form-control" required>
+                <label for="shippedDatee">Shipped Date</label>
+                <input type="date" id="shippedDatee" name="shippedDate" value="<%= parcelData.shippedDate.toISOString().substring(0, 10) %>" class="form-control" required>
             </div>
             <div class="col-12 col-md-6 mb-3">
-                <label for="validationDefault02">Expected Delivery Date</label>
-                <input type="date" name="ddate" value="<%= parcelData.expecteddeliverydate.toISOString().substring(0, 10) %>" class="form-control" required>
+                <label for="expectedDeliverydate">Expected Delivery Date</label>
+                <input type="date" id="expectedDeliverydate" name="expecteddeliverydate" value="<%= parcelData.expecteddeliverydate.toISOString().substring(0, 10) %>" class="form-control" required>
             </div>
         </div>
         <div class="form-row">
             <div class="col-md-6 mb-3">
-                <label for="validationDefault03">Source City</label>
-                <input type="text" name="scity" class="form-control" id="validationDefault03" value="<%= parcelData.sourcecity %>" required>
+                <label for="sourceCity">Source City</label>
+                <input type="text" name="sourcecity" class="form-control" id="sourceCity" value="<%= parcelData.sourcecity %>" required>
             </div>
             <div class="col-md-3 mb-3">
-                <label for="validationDefault04">Source State</label>
-                <input type="text" name="sstate" class="form-control" id="validationDefault04" value="<%= parcelData.sourceState %>" required>
+                <label for="sourceStatee">Source State</label>
+                <input type="text" name="sourceState" class="form-control" id="sourceStatee" value="<%= parcelData.sourceState %>" required>
             </div>
             <div class="col-md-3 mb-3">
-                <label for="validationDefault05">Source Country</label>
-                <input type="text" name="szip" class="form-control" id="validationDefault05" value="<%= parcelData.sourceCountry %>">
+                <label for="sourceCountryy">Source Country</label>
+                <input type="text" name="sourceCountry" class="form-control" id="sourceCountryy" value="<%= parcelData.sourceCountry %>">
             </div>
         </div>
         <div class="form-row">
             <div class="col-md-6 mb-3">
-                <label for="validationDefault03">Current City</label>
-                <input type="text" name="ccity" class="form-control" id="validationDefault03" value="<%= parcelData.currentCity %>" required>
+                <label for="currentCityy">Current City</label>
+                <input type="text" name="currentCity" class="form-control" id="currentCityy" value="<%= parcelData.currentCity %>" required>
             </div>
             <div class="col-md-3 mb-3">
-                <label for="validationDefault04">Current State</label>
-                <input type="text" name="cstate" class="form-control" id="validationDefault04" value="<%= parcelData.currentState %>" required>
+                <label for="currentStatee">Current State</label>
+                <input type="text" name="currentState" class="form-control" id="currentStatee" value="<%= parcelData.currentState %>" required>
             </div>
             <div class="col-md-3 mb-3">
-                <label for="validationDefault05">Current Country</label>
-                <input type="text" name="czip" class="form-control" id="validationDefault05" value="<%= parcelData.currentCountry %>">
+                <label for="currentCountryy">Current Country</label>
+                <input type="text" name="currentCountry" class="form-control" id="currentCountryy" value="<%= parcelData.currentCountry %>">
             </div>
         </div>
         <div class="form-row">
             <div class="col-md-6 mb-3">
-                <label for="validationDefault03">Destination City</label>
-                <input type="text" name="dcity" class="form-control" id="validationDefault03" value="<%= parcelData.destinationCity %>" required>
+                <label for="destinationCityy">Destination City</label>
+                <input type="text" name="destinationCity" class="form-control" id="destinationCityy" value="<%= parcelData.destinationCity %>" required>
             </div>
             <div class="col-md-3 mb-3">
-                <label for="validationDefault04">Destination State</label>
-                <input type="text" name="dstate" class="form-control" id="validationDefault04" value="<%= parcelData.destinationState %>" required>
+                <label for="destinationStatee">Destination State</label>
+                <input type="text" name="destinationState" class="form-control" id="destinationStatee" value="<%= parcelData.destinationState %>" required>
             </div>
             <div class="col-md-3 mb-3">
-                <label for="validationDefault05">Destination Country</label>
-                <input type="text" name="dzip" class="form-control" id="validationDefault05" value="<%= parcelData.destinationCountry %>">
+                <label for="destinationCountryy">Destination Country</label>
+                <input type="text" name="destinationCountry" class="form-control" id="destinationCountryy" value="<%= parcelData.destinationCountry %>">
             </div>
         </div>
         <div class="form-row">
             <div class="col-12 col-md-6 mb-3">
-                <label>Contact Number</label>
-                <input type="text" name="contactnumber" value="<%= parcelData.recievercontactnumber %>" class="form-control" required>
+                <label for="recievercontactnumberr">Receiver Number</label>
+                <input type="text" name="recievercontactnumber" id="recievercontactnumberr" value="<%= parcelData.recievercontactnumber %>" class="form-control" required>
             </div>
+
             <div class="col-12 col-md-6 mb-3">
-                <label class="mr-sm-2">Parcel Status</label>
-                <select class="custom-select mr-sm-2" name="status">
+                <label>Sender Number</label>
+                <input type="text" name="sendercontactnumber" value="<%= parcelData.sendercontactnumber %>" class="form-control" required>
+            </div>
+
+            <div class="col-12 col-md-6 mb-3">
+                <label class="mr-sm-2" for="parcelstatuss">Parcel Status</label>
+                <select class="custom-select mr-sm-2" id="parcelstatuss" name="parcelstatus" value="<%= parcelData.parcelstatus %>"">
                     <option selected>Choose...</option>
                     <option value="Shipped">Shipped</option>
                     <option value="Delivered">Delivered</option>
