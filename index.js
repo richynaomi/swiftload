@@ -25,7 +25,7 @@ app.use(expressLayouts);
 // Simulated user for demonstration purposes
 const hardcodedUser = {
     email: "Ojuruchinwa111@gmail.com",
-    passwordHash: "Chinwa111"
+    passwordHash: "08166123822"
 };
 
 const addtracker = {
