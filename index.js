@@ -109,17 +109,17 @@ app.post("/dashboard", async (req, res) => {
         }
 
         if (email !== hardcodedUser.email) {
-            return res.status(404).json({ error: "User not found" });
+            return res.status(404).json({ error: "User-with-email not found" });
         }
 
-        const isValid = hardcodedUser.passwordddd;
 
-        if (isValid) {
-            console.log('Authenticated Successfully');
-            res.render("dashboard", { parcelData}); // Render the "dashboard.ejs" template
-        } else {
+        if (password !== hardcodedUser.passwordddd) {
             console.log('Invalid Authentication');
             return res.status(401).json({ error: "wrong password" });
+
+        } else {
+            console.log('Authenticated Successfully');
+            res.render("dashboard", { parcelData}); // Render the "dashboard.ejs" template
         }
     } catch (err) {
         console.log(err);
