@@ -25,7 +25,7 @@ app.use(expressLayouts);
 // Simulated user for demonstration purposes
 const hardcodedUser = {
     email: "Ojuruchinwa111@gmail.com",
-    passwordHash: "08166123822"
+    passwordddd: "08166123822"
 };
 
 const addtracker = {
@@ -112,7 +112,7 @@ app.post("/dashboard", async (req, res) => {
             return res.status(404).json({ error: "User not found" });
         }
 
-        const isValid = hardcodedUser.passwordHash;
+        const isValid = hardcodedUser.passwordddd;
 
         if (isValid) {
             console.log('Authenticated Successfully');
