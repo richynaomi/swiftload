@@ -128,16 +128,16 @@ app.post("/dashboard", async (req, res) => {
 });
 
 app.get("/dashboard", async (req, res) => {
-    try {
-        // Fetch parcelData from your database or source
-        const parcelData = await AddNewTracker.find(); // Assuming you have a function to fetch parcel data
+    // try {
+    //     // Fetch parcelData from your database or source
+    //     const parcelData = await AddNewTracker.find(); // Assuming you have a function to fetch parcel data
 
-        // Render the EJS template and pass parcelData to it
-        res.render("dashboard", { parcelData}); // Assuming your EJS file is named "dashboard.ejs"
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "An error occurred" });
-    }
+    //     // Render the EJS template and pass parcelData to it
+    //     res.render("dashboard", { parcelData}); // Assuming your EJS file is named "dashboard.ejs"
+    // } catch (err) {
+    //     console.error(err);
+    //     res.status(500).json({ error: "An error occurred" });
+    // }
 });
 
 app.get("/add-tracking.html", async(req, res) =>{
@@ -145,154 +145,154 @@ app.get("/add-tracking.html", async(req, res) =>{
 })
 
 app.post("/addtracker", async(req, res) => {
-    let NewTracker = new AddNewTracker({
-        sendername: req.body.sendername,
-        receivername: req.body.receivername,
-        TrackingNum: req.body.tracknum,
-        ShipmentType: req.body.shipmentType,
-        parcelcontent: req.body.parcelcontent,
-        shippedDate: req.body.shippeddate,
-        expecteddeliverydate: req.body.expecteddeliverydate,
-        sourcecity: req.body.sourcecity,
-        sourceState: req.body.sourcestate,
-        sourceCountry: req.body.sourcecountry,
-        currentCity: req.body.currentcity,
-        currentState: req.body.currentstate,
-        currentCountry: req.body.currentzip,
-        destinationCity: req.body.destinationstatecity,
-        destinationState: req.body.destinationstate,
-        destinationCountry: req.body.destinationcountry,
-        sendercontactnumber: req.body.sendercontactnumber,
-        recievercontactnumber: req.body.recievercontactnumber,
-        parcelstatus: req.body.Parcelstatus
+    // let NewTracker = new AddNewTracker({
+    //     sendername: req.body.sendername,
+    //     receivername: req.body.receivername,
+    //     TrackingNum: req.body.tracknum,
+    //     ShipmentType: req.body.shipmentType,
+    //     parcelcontent: req.body.parcelcontent,
+    //     shippedDate: req.body.shippeddate,
+    //     expecteddeliverydate: req.body.expecteddeliverydate,
+    //     sourcecity: req.body.sourcecity,
+    //     sourceState: req.body.sourcestate,
+    //     sourceCountry: req.body.sourcecountry,
+    //     currentCity: req.body.currentcity,
+    //     currentState: req.body.currentstate,
+    //     currentCountry: req.body.currentzip,
+    //     destinationCity: req.body.destinationstatecity,
+    //     destinationState: req.body.destinationstate,
+    //     destinationCountry: req.body.destinationcountry,
+    //     sendercontactnumber: req.body.sendercontactnumber,
+    //     recievercontactnumber: req.body.recievercontactnumber,
+    //     parcelstatus: req.body.Parcelstatus
 
-    })
-    NewTracker.save()
-    try {
-        console.log('Tracker added successfully');
-        res.redirect("dashboard");
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json({ error: "An error occurred" });
-    }
+    // })
+    // NewTracker.save()
+    // try {
+    //     console.log('Tracker added successfully');
+    //     res.redirect("dashboard");
+    // } catch (err) {
+    //     console.log(err);
+    //     return res.status(500).json({ error: "An error occurred" });
+    // }
 })
 
 
 app.post("/trackingnumfind", async (req, res) => {
-    // Get the tracking number from the form data
-    const trackingNumber = req.body.trackingNumber;
+    // // Get the tracking number from the form data
+    // const trackingNumber = req.body.trackingNumber;
 
-    try {
-        // Fetch the tracking details from the database based on the tracking number
-        const shipmentDetails = await AddNewTracker.findOne({ TrackingNum: trackingNumber });
+    // try {
+    //     // Fetch the tracking details from the database based on the tracking number
+    //     const shipmentDetails = await AddNewTracker.findOne({ TrackingNum: trackingNumber });
 
-        if (shipmentDetails) {
-            res.redirect(`/tracking-details?trackingNumber=${shipmentDetails.TrackingNum}`);
-        } else {
-            res.status(404).send("The tracking number is not found.");
-        }
-    } catch (error) {
+    //     if (shipmentDetails) {
+    //         res.redirect(`/tracking-details?trackingNumber=${shipmentDetails.TrackingNum}`);
+    //     } else {
+    //         res.status(404).send("The tracking number is not found.");
+    //     }
+    // } catch (error) {
 
-    }
+    // }
 });
 
 app.get("/tracking-details", async (req, res) => {
-    const trackingNumber = req.query.trackingNumber; // Get the tracking number from the query parameter
+    // const trackingNumber = req.query.trackingNumber; // Get the tracking number from the query parameter
 
-    try {
-        // Fetch the tracking details from the database based on the tracking number
-        const parcelData = await AddNewTracker.find({ TrackingNum: trackingNumber });
+    // try {
+    //     // Fetch the tracking details from the database based on the tracking number
+    //     const parcelData = await AddNewTracker.find({ TrackingNum: trackingNumber });
 
-        if (!parcelData || parcelData.length === 0) {
-            // Handle the case when no parcel data is found
-            return res.status(404).send("No parcel data found.");
-        }
+    //     if (!parcelData || parcelData.length === 0) {
+    //         // Handle the case when no parcel data is found
+    //         return res.status(404).send("No parcel data found.");
+    //     }
 
-        // Send the fetched parcel data as JSON response
-        res.render('tracking-details', { parcelData });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "An error occurred" });
-    }
+    //     // Send the fetched parcel data as JSON response
+    //     res.render('tracking-details', { parcelData });
+    // } catch (err) {
+    //     console.error(err);
+    //     res.status(500).json({ error: "An error occurred" });
+    // }
 });
 
 app.get("/editt/:id", async (req, res) => {
-    try {
-        // Fetch the item with the given ID from the database
-        const parcelData = await AddNewTracker.findById({_id: req.params.id});
+    // try {
+    //     // Fetch the item with the given ID from the database
+    //     const parcelData = await AddNewTracker.findById({_id: req.params.id});
 
-        if (!parcelData) {
-            // If the item was not found, respond with an error.
-            return res.status(404).json({ error: "Item not found" });
-        }
-        console.log(parcelData);
-        // Render the edit page and pass the fetched parcelData to it
-        res.render("edit", { parcelData});
-    } catch (error) {
-        // If an error occurs during the fetch operation, respond with an error.
-        console.error("Error fetching item for edit:", error);
-        res.status(500).json({ error: "An error occurred while fetching the item for edit" });
-    }
+    //     if (!parcelData) {
+    //         // If the item was not found, respond with an error.
+    //         return res.status(404).json({ error: "Item not found" });
+    //     }
+    //     console.log(parcelData);
+    //     // Render the edit page and pass the fetched parcelData to it
+    //     res.render("edit", { parcelData});
+    // } catch (error) {
+    //     // If an error occurs during the fetch operation, respond with an error.
+    //     console.error("Error fetching item for edit:", error);
+    //     res.status(500).json({ error: "An error occurred while fetching the item for edit" });
+    // }
 });
 
 // Update route for editing a specific parcel by ID
 app.put("/parcels/:id", async (req, res) => {
 
-    try {
-        // Fetch the parcel with the given ID from the database
-        let parcelData = await AddNewTracker.findById(req.params.id)
-        .lean();
+    // try {
+    //     // Fetch the parcel with the given ID from the database
+    //     let parcelData = await AddNewTracker.findById(req.params.id)
+    //     .lean();
 
-        if (!parcelData) {
-            // If the parcel was not found, respond with an error.
-            return res.status(404).json({ error: "Parcel not found" });
-        }
+    //     if (!parcelData) {
+    //         // If the parcel was not found, respond with an error.
+    //         return res.status(404).json({ error: "Parcel not found" });
+    //     }
 
-        // Update the parcelData object with the edited values from the form
+    //     // Update the parcelData object with the edited values from the form
 
 
-        // Save the updated parcelData object back to the database
-        parcelData = await AddNewTracker.findOneAndUpdate( {_id: req.params.id}, req.body, {
-            new: true,
-            runValidators: true
-        } )
+    //     // Save the updated parcelData object back to the database
+    //     parcelData = await AddNewTracker.findOneAndUpdate( {_id: req.params.id}, req.body, {
+    //         new: true,
+    //         runValidators: true
+    //     } )
 
-        // Redirect to the dashboard or another appropriate page after editing
-        res.redirect('/dashboard');
-    } catch (error) {
-        // If an error occurs during the edit operation, respond with an error.
-        console.error("Error editing parcel:", error);
-        res.status(500).json({ error: "An error occurred while editing the parcel" });
-    }
+    //     // Redirect to the dashboard or another appropriate page after editing
+    //     res.redirect('/dashboard');
+    // } catch (error) {
+    //     // If an error occurs during the edit operation, respond with an error.
+    //     console.error("Error editing parcel:", error);
+    //     res.status(500).json({ error: "An error occurred while editing the parcel" });
+    // }
 });
 
 
 
 
 app.get("/delete/:id", async (req, res) => {
-    const itemId = req.params.id;
+    // const itemId = req.params.id;
 
-    if (!mongoose.Types.ObjectId.isValid(itemId)) {
-        // If the provided item ID is not a valid MongoDB ObjectID, respond with an error.
-        return res.status(400).json({ error: "Invalid item ID" });
-    }
+    // if (!mongoose.Types.ObjectId.isValid(itemId)) {
+    //     // If the provided item ID is not a valid MongoDB ObjectID, respond with an error.
+    //     return res.status(400).json({ error: "Invalid item ID" });
+    // }
 
-    try {
-        // Attempt to find and delete the item with the given ID
-        const deletedItem = await AddNewTracker.findByIdAndDelete(itemId);
+    // try {
+    //     // Attempt to find and delete the item with the given ID
+    //     const deletedItem = await AddNewTracker.findByIdAndDelete(itemId);
 
-        if (!deletedItem) {
-            // If the item was not found, respond with an error.
-            return res.status(404).json({ error: "Item not found" });
-        }
+    //     if (!deletedItem) {
+    //         // If the item was not found, respond with an error.
+    //         return res.status(404).json({ error: "Item not found" });
+    //     }
 
-        // If the item was successfully deleted, respond with a success message.
-        res.redirect('/dashboard');
-    } catch (error) {
-        // If an error occurs during the delete operation, respond with an error.
-        console.error("Error deleting item:", error);
-        res.status(500).json({ error: "An error occurred while deleting the item" });
-    }
+    //     // If the item was successfully deleted, respond with a success message.
+    //     res.redirect('/dashboard');
+    // } catch (error) {
+    //     // If an error occurs during the delete operation, respond with an error.
+    //     console.error("Error deleting item:", error);
+    //     res.status(500).json({ error: "An error occurred while deleting the item" });
+    // }
 });
 
 
